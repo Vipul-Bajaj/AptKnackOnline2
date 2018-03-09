@@ -20,6 +20,7 @@ public class SyllabusDao extends BaseDao {
 
         Connection con = null;
         con = getConn();
+        Log.d("Vipul", "getAllM: " + con);
         String sql = "SELECT * from syllabus";
         try {
             PreparedStatement pst = con.prepareStatement(sql);
@@ -31,7 +32,7 @@ public class SyllabusDao extends BaseDao {
                 s.setTotalQuestions(rset.getInt("tot_ques"));
                 s.setTotalMarks(rset.getInt("tot_mrk"));
                 s.setQuestionTopic(rset.getString("exm_name"));
-                s.setQuestionNo(rset.getString("questions"));
+                s.setQuestionNo(rset.getString("quests"));
 
                 res.add(s);
             }

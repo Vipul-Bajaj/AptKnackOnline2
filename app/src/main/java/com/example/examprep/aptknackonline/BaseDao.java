@@ -10,10 +10,10 @@ public class BaseDao {
     /**
      * Constants-----------------------------------------------
      */
-    protected static final String DB_HOST = "sql12.freesqldatabase.com";  // "www.db4free.net";
-    protected static final String DB_USER = "sql12221983"; // "testoadmin";
-    protected static final String DB_PASS = "t7mauXLJKT"; // "alphaalpha";
-    protected static final String DB_NAME = "sql12221983"; // "testoprepdb";
+    protected static final String DB_HOST = "sql12.freemysqlhosting.net";  // "www.db4free.net";
+    protected static final String DB_USER = "sql12225659"; // "testoadmin";
+    protected static final String DB_PASS = "HPmFPPjU1e"; // "alphaalpha";
+    protected static final String DB_NAME = "sql12225659"; // "testoprepdb";
 
     /**
      * ---------------------------------------------------------
@@ -27,9 +27,7 @@ public class BaseDao {
 
         Connection res = null;
         Class.forName("com.mysql.jdbc.Driver");
-        res = DriverManager.getConnection("jdbc:mysql://192.168.43.33/test", "root", "root");
-
-        Log.d("vipul", "getConn: connected to database");
+        res = DriverManager.getConnection("jdbc:mysql://" + DB_HOST + ":3306/" + DB_NAME, DB_USER, DB_PASS);
         return res;
     }
 

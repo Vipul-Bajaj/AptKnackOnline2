@@ -60,7 +60,7 @@ public class MockTest extends AppCompatActivity {
                 LinkedList<Syllabus> res = new LinkedList<Syllabus>();
                 try {
                     Log.d("Vipul", "doInBackground " + MockTest.this.getApplicationInfo().dataDir);
-                    res = SyllabusDao.getAll(MockTest.this);
+                    res = SyllabusDao.getAllM();
 
                     msg.data = res;
 
