@@ -1,6 +1,6 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.POJO;
 
-public class Syllabus {
+public class SyllabusPOJO {
     private int id;
     private String questionNo;
     private String questionTopic;

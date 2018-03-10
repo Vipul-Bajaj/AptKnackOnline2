@@ -1,4 +1,4 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Activities;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.Button;
@@ -14,6 +13,14 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.examprep.aptknackonline.DataBase.QuestionDatabase;
+import com.example.examprep.aptknackonline.DataBase.SyllabusDatabase;
+import com.example.examprep.aptknackonline.Misc.Message;
+import com.example.examprep.aptknackonline.POJO.QuestionPOJO;
+import com.example.examprep.aptknackonline.POJO.SyllabusPOJO;
+import com.example.examprep.aptknackonline.R;
+import com.example.examprep.aptknackonline.Misc.SharedPref;
 
 import java.util.LinkedList;
 
@@ -37,7 +44,8 @@ public class TestActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_test);
         questions = new LinkedList<Integer>();
-        LinkedList<Syllabus> res = SyllabusDao.getById(this, exmId);
+        LinkedList<SyllabusPOJO> res = null;
+        res = SyllabusDatabase.getById(this, exmId);
         sp = getPreferences(MODE_PRIVATE);
         if (res.size() <= 0) {
             Toast.makeText(this, "No exam found matching id " + exmId, Toast.LENGTH_SHORT).show();
@@ -128,7 +136,7 @@ public class TestActivity extends AppCompatActivity {
             }
         });
         currQuest = 0;
-        Syllabus s = res.get(0);
+        SyllabusPOJO s = res.get(0);
         marksTextView.setText("Max. Mrks: " + s.getTotalMarks());
         questionTypeTextView.setText(s.getQuestionTopic());
         String[] questsStr = s.getQuestionNo().split(",");
@@ -187,10 +195,10 @@ public class TestActivity extends AppCompatActivity {
                 msg.code = 0;
                 msg.msg = "";
 
-                LinkedList<Quest> res = new LinkedList<Quest>();
+                LinkedList<QuestionPOJO> res = new LinkedList<QuestionPOJO>();
 
                 try {
-                    res = QuestsDao.getById(getApplicationContext(), q);
+                    res = QuestionDatabase.getByIdM(q);
                     msg.data = res;
                 } catch (Exception e) {
                     msg.code = 1;
@@ -209,7 +217,7 @@ public class TestActivity extends AppCompatActivity {
                     return;
                 }
 
-                LinkedList<Quest> res = (LinkedList<Quest>) msg.data;
+                LinkedList<QuestionPOJO> res = (LinkedList<QuestionPOJO>) msg.data;
 
                 rightAns[currQuest] = res.get(0).getAns();
 
@@ -234,11 +242,10 @@ public class TestActivity extends AppCompatActivity {
 
     private void regProgress() {
         double per = ((currQuest + 1.0) / questions.size()) * 100.0;
-        SharedPref.saveIt(this, SyllabusDao.storedProgPrefix + exmId, (int) per);
+        SharedPref.saveIt(this, SyllabusDatabase.storedProgPrefix + exmId, (int) per);
     }
 
     private void startTimer() {
-        Log.d("Vipul", "startTimer: " + questions.size());
         remainingMins = questions.size() * 1;
         timerTextView.setText("Time remaining : " + (remainingMins) + " Min");
         Thread t = new Thread(new Runnable() {
@@ -263,20 +270,15 @@ public class TestActivity extends AppCompatActivity {
                         });
                     }
                 }
-                Log.d("finisher", "Exam Should finish now");
                 runOnUiThread(new Runnable() {
                     @Override
                     public void run() {
                         finishExm();
                     }
                 });
-
             }
-
         });
-
         t.start();
-
     }
 
     private void finishExm() {

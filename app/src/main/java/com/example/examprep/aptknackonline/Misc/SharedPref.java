@@ -1,4 +1,4 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Misc;
 
 import android.content.Context;
 import android.content.SharedPreferences;

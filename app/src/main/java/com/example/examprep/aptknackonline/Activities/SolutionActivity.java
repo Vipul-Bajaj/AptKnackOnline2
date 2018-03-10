@@ -1,9 +1,11 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Activities;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+
+import com.example.examprep.aptknackonline.R;
 
 public class SolutionActivity extends AppCompatActivity {
 

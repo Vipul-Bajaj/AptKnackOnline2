@@ -1,14 +1,15 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.Toast;
+
+import com.example.examprep.aptknackonline.R;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,17 +58,9 @@ public class MainActivity extends AppCompatActivity {
             Log.d("Vipul", "initOneTmSetup: " + getApplicationInfo().dataDir);
             File f = new File(getApplicationInfo().dataDir + "/examprep.sqlite");
             if (f.exists() == false) {
-                Toast.makeText(this, "file currupted Creating Syllabus ", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "file currupted Creating SyllabusPOJO ", Toast.LENGTH_LONG).show();
                 copyFile("examprep.sqlite", R.raw.examprep);
             }
-
-//			-------DEBUGGING----------------------------
-//			try {
-//				ZipFile z =new ZipFile("aa.zip");
-//			} catch (IOException e) {
-//				e.printStackTrace();
-//			}
-//			--------------------------------------------
         }
     }
 

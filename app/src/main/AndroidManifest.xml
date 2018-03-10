@@ -12,18 +12,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".MainActivity">
+        <activity android:name=".Activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SolutionActivity" />
-        <activity android:name=".TestHomeActivity" />
-        <activity android:name=".SolutionWebViewActivity" />
-        <activity android:name=".TestActivity" />
-        <activity android:name=".MockTest"></activity>
+        <activity android:name=".Activities.SolutionActivity" />
+        <activity android:name=".Activities.TestHomeActivity" />
+        <activity android:name=".Activities.SolutionWebViewActivity" />
+        <activity android:name=".Activities.TestActivity" />
+        <activity android:name=".Activities.MockTest"></activity>
     </application>
 
 </manifest>

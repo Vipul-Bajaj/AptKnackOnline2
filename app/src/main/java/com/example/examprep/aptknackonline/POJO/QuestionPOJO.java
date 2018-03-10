@@ -1,6 +1,6 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.POJO;
 
-public class Quest {
+public class QuestionPOJO {
     private int id, marks, negMarks;
     private String question;
     private String questionType;
@@ -14,16 +14,8 @@ public class Quest {
         this.id = id;
     }
 
-    public int getMarks() {
-        return marks;
-    }
-
     public void setMarks(int marks) {
         this.marks = marks;
-    }
-
-    public int getNegMarks() {
-        return negMarks;
     }
 
     public void setNegMarks(int negMarks) {
@@ -36,10 +28,6 @@ public class Quest {
 
     public void setQuestion(String question) {
         this.question = question;
-    }
-
-    public String getQuestionType() {
-        return questionType;
     }
 
     public void setQuestionType(String questionType) {

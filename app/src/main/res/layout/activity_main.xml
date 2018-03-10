@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/background"
     android:elevation="10dp"
-    tools:context="com.example.examprep.aptknackonline.MainActivity">
+    tools:context="com.example.examprep.aptknackonline.Activities.MainActivity">
 
     <TextView
         android:id="@+id/ProjectNametextView"

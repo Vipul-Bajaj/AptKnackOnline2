@@ -1,4 +1,4 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.DataBase;
 
 import android.util.Log;
 
@@ -6,14 +6,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
 
-public class BaseDao {
-    /**
-     * Constants-----------------------------------------------
-     */
-    protected static final String DB_HOST = "sql12.freemysqlhosting.net";  // "www.db4free.net";
-    protected static final String DB_USER = "sql12225659"; // "testoadmin";
-    protected static final String DB_PASS = "HPmFPPjU1e"; // "alphaalpha";
-    protected static final String DB_NAME = "sql12225659"; // "testoprepdb";
+public class ConnectionManager {
+
+    protected static final String DB_HOST = "sql12.freemysqlhosting.net";
+    protected static final String DB_USER = "sql12225659";
+    protected static final String DB_PASS = "HPmFPPjU1e";
+    protected static final String DB_NAME = "sql12225659";
 
     /**
      * ---------------------------------------------------------

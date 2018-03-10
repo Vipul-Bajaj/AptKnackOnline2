@@ -1,4 +1,4 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Activities;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -9,28 +9,37 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+
+import com.example.examprep.aptknackonline.DataBase.SyllabusDatabase;
+import com.example.examprep.aptknackonline.Misc.ExamData;
+import com.example.examprep.aptknackonline.Misc.ExamAdapter;
+import com.example.examprep.aptknackonline.Misc.Message;
+import com.example.examprep.aptknackonline.POJO.SyllabusPOJO;
+import com.example.examprep.aptknackonline.R;
+import com.example.examprep.aptknackonline.Misc.SharedPref;
 
 import java.util.LinkedList;
 
 public class MockTest extends AppCompatActivity {
 
     ListView lstMockTst;
-    MainActivity mainActivity;
-    ExmAdapter adapter;
+    ExamAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mock_test);
-        Log.i("Vipul", "onCreate: MOck Test Mai AAYa");
-        lstMockTst = findViewById(R.id.lstMockTest);
-        adapter = new ExmAdapter(MockTest.this);
 
-        @SuppressLint("StaticFieldLeak") AsyncTask<Void, Void, Message> a = new AsyncTask<Void, Void, Message>() {
+        final String subject = getIntent().getStringExtra("testType");
+
+        lstMockTst = findViewById(R.id.lstMockTest);
+        adapter = new ExamAdapter(MockTest.this);
+
+        @SuppressLint("StaticFieldLeak")
+        AsyncTask<Void, Void, Message> a = new AsyncTask<Void, Void, Message>() {
             AlertDialog.Builder b;
             AlertDialog dlg;
 
@@ -57,10 +66,14 @@ public class MockTest extends AppCompatActivity {
                 msg.code = 0;
                 msg.msg = "";
 
-                LinkedList<Syllabus> res = new LinkedList<Syllabus>();
+                LinkedList<SyllabusPOJO> res = new LinkedList<SyllabusPOJO>();
                 try {
-                    Log.d("Vipul", "doInBackground " + MockTest.this.getApplicationInfo().dataDir);
-                    res = SyllabusDao.getAllM();
+
+                    if (subject.equalsIgnoreCase("self")) {
+                        res = SyllabusDatabase.getAllM();
+                    } else {
+                        res = SyllabusDatabase.getBySubM(subject);
+                    }
 
                     msg.data = res;
 
@@ -76,7 +89,7 @@ public class MockTest extends AppCompatActivity {
             protected void onPostExecute(Message msg) {
                 SharedPreferences sp = MockTest.this.getPreferences(Context.MODE_PRIVATE);
 
-                LinkedList<Syllabus> res = (LinkedList<Syllabus>) msg.data;
+                LinkedList<SyllabusPOJO> res = (LinkedList<SyllabusPOJO>) msg.data;
 
                 if (msg.code != 0) {
                     dlg.dismiss();
@@ -95,22 +108,18 @@ public class MockTest extends AppCompatActivity {
                     return;
                 }
 
-                for (Syllabus s : res) {
-                    int mrk = SharedPref.getIt(MockTest.this, SyllabusDao.storedMarkPrefix + s.getId());
-                    int prog = SharedPref.getIt(MockTest.this, SyllabusDao.storedProgPrefix + s.getId());
+                for (SyllabusPOJO s : res) {
+                    int mrk = SharedPref.getIt(MockTest.this, SyllabusDatabase.storedMarkPrefix + s.getId());
+                    int prog = SharedPref.getIt(MockTest.this, SyllabusDatabase.storedProgPrefix + s.getId());
                     adapter.add(s, mrk, prog);
                 }
 
-                // Toast.makeText(activity,
-                // sp.getInt(SyllabusDao.storedProgPrefix+10, 0)+" data in
-                // main",
-                // Toast.LENGTH_SHORT).show();
                 lstMockTst.setAdapter(adapter);
                 lstMockTst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 
                     @Override
                     public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-                        ExmAdaData dat = adapter.data.get(arg2);
+                        ExamData dat = adapter.data.get(arg2);
                         TestActivity.exmId = dat.getSyllabus().getId();
                         MockTest.this.startActivity(new Intent(MockTest.this, TestActivity.class));
                     }

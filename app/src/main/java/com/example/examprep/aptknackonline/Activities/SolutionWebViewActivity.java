@@ -1,9 +1,11 @@
-package com.example.examprep.aptknackonline;
+package com.example.examprep.aptknackonline.Activities;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.webkit.WebView;
 import android.widget.Button;
+
+import com.example.examprep.aptknackonline.R;
 
 public class SolutionWebViewActivity extends AppCompatActivity {
 
