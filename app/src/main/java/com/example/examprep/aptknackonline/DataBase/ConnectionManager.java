@@ -8,10 +8,10 @@ import java.sql.SQLException;
 
 public class ConnectionManager {
 
-    protected static final String DB_HOST = "sql12.freemysqlhosting.net";
-    protected static final String DB_USER = "sql12225659";
-    protected static final String DB_PASS = "HPmFPPjU1e";
-    protected static final String DB_NAME = "sql12225659";
+    protected static final String DB_HOST = "208.91.199.11";
+    protected static final String DB_USER = "peeraptitude";
+    protected static final String DB_PASS = "jif7C8@4";
+    protected static final String DB_NAME = "peeraptitutdedb";
 
     /**
      * ---------------------------------------------------------
@@ -25,7 +25,9 @@ public class ConnectionManager {
 
         Connection res = null;
         Class.forName("com.mysql.jdbc.Driver");
+        Log.d("Vipul", "getConn: got a request");
         res = DriverManager.getConnection("jdbc:mysql://" + DB_HOST + ":3306/" + DB_NAME, DB_USER, DB_PASS);
+        Log.d("Vipul", "getConn: " + res);
         return res;
     }
 
