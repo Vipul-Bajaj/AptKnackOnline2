@@ -312,7 +312,7 @@ public class TestActivity extends AppCompatActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(TestActivity.this);
         builder.setMessage("Are you sure ??");
         builder.setTitle("Leaving exam !!");
-        builder.setPositiveButton("I am damn sure", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("I am sure", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface arg0, int arg1) {
                 finishExm();
